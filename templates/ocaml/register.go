@@ -61,6 +61,38 @@ func Register(tpl *template.Template, params pgs.Parameters) {
 	template.Must(tpl.New("msg").Parse(msgTpl))
 	template.Must(tpl.New("msgInner").Parse(msgInnerTpl))
 
+	template.Must(tpl.New("none").Parse(noneTpl))
+
+	template.Must(tpl.New("float").Parse(numTpl))
+	template.Must(tpl.New("double").Parse(numTpl))
+	template.Must(tpl.New("int32").Parse(numTpl))
+	template.Must(tpl.New("int64").Parse(numTpl))
+	template.Must(tpl.New("uint32").Parse(numTpl))
+	template.Must(tpl.New("uint64").Parse(numTpl))
+	template.Must(tpl.New("sint32").Parse(numTpl))
+	template.Must(tpl.New("sint64").Parse(numTpl))
+	template.Must(tpl.New("fixed32").Parse(numTpl))
+	template.Must(tpl.New("fixed64").Parse(numTpl))
+	template.Must(tpl.New("sfixed32").Parse(numTpl))
+	template.Must(tpl.New("sfixed64").Parse(numTpl))
+
+	template.Must(tpl.New("bool").Parse(boolTpl))
+	template.Must(tpl.New("string").Parse(stringTpl))
+
+	template.Must(tpl.New("any").Parse(anyTpl))
+	template.Must(tpl.New("enum").Parse(enumTpl))
+	template.Must(tpl.New("message").Parse(messageTpl))
+	template.Must(tpl.New("repeated").Parse(repeatedTpl))
+	template.Must(tpl.New("repeatedConst").Parse(repeatedConstTpl))
+	template.Must(tpl.New("map").Parse(mapTpl))
+	template.Must(tpl.New("mapConst").Parse(mapConstTpl))
+	template.Must(tpl.New("oneOf").Parse(oneOfTpl))
+	template.Must(tpl.New("oneOfConst").Parse(oneOfConstTpl))
+
+	template.Must(tpl.New("choice").Parse(choiceTpl))
+	template.Must(tpl.New("required").Parse(requiredTpl))
+	template.Must(tpl.New("timestamp").Parse(timestampTpl))
+	template.Must(tpl.New("duration").Parse(durationTpl))
 	template.Must(tpl.New("wrapper").Parse(wrapperTpl))
 	template.Must(tpl.New("wrapperConst").Parse(wrapperConstTpl))
 }

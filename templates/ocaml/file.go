@@ -13,28 +13,14 @@ const fileTpl = `
 
 {{ if isOfFileType . }}
 module {{ classNameFile . }}Validator = struct
-	type 'a t = {
-		value: 'a;
-		validate: 'a -> bool;
-	}
-
-	type validated_field_type =
-		| Ok
+	type 'a result =
+		| Ok of 'a
 		| Error of string;
-	
-	type validated_fields_type = {
-		{{- range .AllMessages }}
-			{{- range .Fields}}
-		{{.Descriptor.Name}}: validated_field_type;  
-			{{- end}}
-		{{- end}}
-	}
 
-	let validate () = {
-		{{- range .AllMessages }}{{- range .Fields}}
-		{{.Descriptor.Name}}: ;  
-		{{- end}}{{- end}}
-	}
+
+	{{ range .AllMessages -}}
+		{{- template "msg" . -}}
+	{{- end }}
 
 {{ end }}
 `

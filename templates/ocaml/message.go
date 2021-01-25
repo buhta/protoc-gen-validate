@@ -6,8 +6,8 @@ const messageTpl = `{{ $f := .Field }}{{ $r := .Rules }}
 	{{- else -}}
 		{{- template "required" . }}
 		{{- if (isOfMessageType $f) }}
-			// Validate {{ $f.Name }}
-			if ({{ hasAccessor . }}) index.validatorFor({{ accessor . }}).assertValid({{ accessor . }});
+		(* Validate {{ $f.Name }} *)
+			(* [todo] validation of submessage *)
 		{{- end -}}
 	{{- end -}}
 `

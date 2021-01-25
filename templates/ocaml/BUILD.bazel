@@ -7,7 +7,6 @@ go_library(
         "bool.go",
         "bytes.go",
         "duration.go",
-        "enum.go",
         "file.go",
         "map.go",
         "message.go",

@@ -2,13 +2,7 @@ package ocaml
 
 const msgTpl = `
 {{ if not (ignored .) -}}
-	/**
-	 * Validates {@code {{ simpleName . }}} protobuf objects.
-	 */ 	
-	public static function load{{ camelCase (simpleName .) }}ValidatorMetadata(ClassMetadata $metadata)
-	{
-		{{- template "msgInner" . -}}
-	}
+	{{- template "msgInner" . -}}
 {{- end -}}
 `
 
@@ -29,6 +23,7 @@ const msgInnerTpl = `
 	{{ end -}}
 	{{- end }}
 	`
-	// {{ range .OneOfs }}
-	// 	{{ template "oneOf" . }}
-	// {{- end -}}
+
+// {{ range .OneOfs }}
+// 	{{ template "oneOf" . }}
+// {{- end -}}
