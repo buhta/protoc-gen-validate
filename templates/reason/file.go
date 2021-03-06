@@ -9,11 +9,9 @@ module Validators = {
 		| Ok
 		| Error(string);
 
-	{{- range .AllMessages }}
-		{{- range .Fields}}
-	let {{.Descriptor.Name}} = _ => Ok;  
-		{{- end}}
-	{{- end}}
+	{{ range .AllMessages -}}
+		{{- template "msg" . -}}
+	{{- end }}
 }
 {{ end }}
 `

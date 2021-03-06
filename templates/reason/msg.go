@@ -1,14 +1,7 @@
 package reason
 
 const msgTpl = `
-{{ if not (ignored .) -}}
-	/**
-	 * Validates {@code {{ simpleName . }}} protobuf objects.
-	 */
-	public static class {{ simpleName . }}Validator implements io.envoyproxy.pgv.ValidatorImpl<{{ qualifiedName . }}> {
-		{{- template "msgInner" . -}}
-	}
-{{- end -}}
+	{{- template "msgInner" . -}}
 `
 
 const msgInnerTpl = `
@@ -19,7 +12,6 @@ const msgInnerTpl = `
 		{{ template "oneOfConst" . }}
 	{{ end }}
 
-	public void assertValid({{ qualifiedName . }} proto, io.envoyproxy.pgv.ValidatorIndex index) throws io.envoyproxy.pgv.ValidationException {
 	{{ if disabled . }}
 		// Validate is disabled for {{ simpleName . }}
 		return;
@@ -31,5 +23,4 @@ const msgInnerTpl = `
 		{{ template "oneOf" . }}
 	{{- end -}}
 	{{- end }}
-	}
 `
