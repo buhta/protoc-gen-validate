@@ -5,22 +5,22 @@ const msgTpl = `
 `
 
 const msgInnerTpl = `
-	{{- range .NonOneOfFields }}
-		{{ renderConstants (context .) }}
-	{{ end }}
-	{{ range .OneOfs }}
-		{{ template "oneOfConst" . }}
-	{{ end }}
+{{- range .NonOneOfFields }}
+	{{ renderConstants (context .) }}
+{{ end }}
+{{ range .OneOfs }}
+	{{ template "oneOfConst" . }}
+{{ end }}
 
-	{{ if disabled . }}
-		// Validate is disabled for {{ simpleName . }}
-		return;
-	{{- else -}}
-	{{ range .NonOneOfFields -}}
-		{{ render (context .) }}
-	{{ end -}}
-	{{ range .OneOfs }}
-		{{ template "oneOf" . }}
-	{{- end -}}
-	{{- end }}
+{{ if disabled . }}
+	// Validate is disabled for {{ simpleName . }}
+	return;
+{{- else -}}
+{{ range .NonOneOfFields -}}
+	{{ render (context .) }}
+{{ end -}}
+{{ range .OneOfs }}
+	{{ template "oneOf" . }}
+{{- end -}}
+{{- end }}
 `
