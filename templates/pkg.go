@@ -4,12 +4,13 @@ import (
 	"text/template"
 
 	"github.com/envoyproxy/protoc-gen-validate/templates/cc"
-	"github.com/envoyproxy/protoc-gen-validate/templates/go"
+	golang "github.com/envoyproxy/protoc-gen-validate/templates/go"
 	"github.com/envoyproxy/protoc-gen-validate/templates/java"
 	"github.com/envoyproxy/protoc-gen-validate/templates/php_yaml"
+	"github.com/envoyproxy/protoc-gen-validate/templates/reason"
 	"github.com/envoyproxy/protoc-gen-validate/templates/shared"
-	"github.com/lyft/protoc-gen-star"
-	"github.com/lyft/protoc-gen-star/lang/go"
+	pgs "github.com/lyft/protoc-gen-star"
+	pgsgo "github.com/lyft/protoc-gen-star/lang/go"
 )
 
 type RegisterFn func(tpl *template.Template, params pgs.Parameters)
@@ -28,6 +29,7 @@ func Template(params pgs.Parameters) map[string][]*template.Template {
 		"go":       {makeTemplate("go", golang.Register, params)},
 		"java":     {makeTemplate("java", java.Register, params)},
 		"php_yaml": {makeTemplate("php_yaml", php_yaml.Register, params)},
+		"reason":   {makeTemplate("reason", reason.Register, params)},
 	}
 }
 
@@ -41,6 +43,8 @@ func FilePathFor(tpl *template.Template) FilePathFn {
 		return java.JavaFilePath
 	case "php_yaml":
 		return php_yaml.PhpYamlFilePath
+	case "reason":
+		return reason.ReasonFilePath
 	default:
 		return func(f pgs.File, ctx pgsgo.Context, tpl *template.Template) *pgs.FilePath {
 			out := ctx.OutputPath(f)
