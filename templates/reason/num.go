@@ -13,6 +13,13 @@ const numConstTpl = `{{ $f := .Field }}{{ $r := .Rules -}}
 
 const numTpl = `{{ $f := .Field }}{{ $r := .Rules -}}
 {{- if $r.Gt }}
-	let {{ $f.Name }} = value => value > {{ constantName . "Gt" }} ? Ok : Error("must be greater than " ++ {{ constantName . "Gt" }});
+		if (value > {{ constantName . "Gt" }}) {
+			errors := errors^ @ ["must be greater than " ++ string_of_int({{ constantName . "Gt" }})];
+		};
+{{- end -}}
+{{- if $r.Lt }}
+		if (value < {{ constantName . "Lt" }}) {
+			errors := errors^ @ ["must be Lt than " ++ string_of_int({{ constantName . "Lt" }})];
+		};
 {{- end -}}
 `

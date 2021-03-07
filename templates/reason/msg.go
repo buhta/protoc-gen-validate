@@ -6,9 +6,11 @@ const msgTpl = `
 
 const msgInnerTpl = `
 {{- range .NonOneOfFields }}
+	// we have NonOneOfFields
 	{{ renderConstants (context .) }}
 {{ end }}
 {{ range .OneOfs }}
+	// we have OneOfs
 	{{ template "oneOfConst" . }}
 {{ end }}
 
@@ -16,8 +18,14 @@ const msgInnerTpl = `
 	// Validate is disabled for {{ simpleName . }}
 	return;
 {{- else -}}
-{{ range .NonOneOfFields -}}
-	{{ render (context .) }}
+	{{- range .NonOneOfFields}}
+	let {{.Name}} = value => {	
+		let errors = ref([]);
+
+		{{ render (context .) }}
+
+		List.length(errors^) == 0 ? Ok(value) : Error(errors); 
+	};
 {{ end -}}
 {{ range .OneOfs }}
 	{{ template "oneOf" . }}
