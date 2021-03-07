@@ -528,5 +528,5 @@ func (fns javaFuncs) renderConstants(tpl *template.Template) func(ctx shared.Rul
 }
 
 func (fns javaFuncs) constantName(ctx shared.RuleContext, rule string) string {
-	return strcase.ToScreamingSnake(ctx.Field.Name().String() + "_" + ctx.Index + "_" + rule)
+	return strcase.ToSnake(ctx.Field.Name().String() + "_" + ctx.Index + "_" + rule)
 }
