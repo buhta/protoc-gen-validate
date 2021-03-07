@@ -24,7 +24,7 @@ const msgInnerTpl = `
 
 		{{ render (context .) }}
 
-		List.length(errors^) == 0 ? Ok(value) : Error(errors); 
+		List.length(errors^) == 0 ? Ok(value) : Error(errors^); 
 	};
 {{ end -}}
 {{ range .OneOfs }}
