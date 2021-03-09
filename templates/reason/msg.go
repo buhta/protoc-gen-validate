@@ -6,12 +6,10 @@ const msgTpl = `
 
 const msgInnerTpl = `
 {{- range .NonOneOfFields }}
-	// we have NonOneOfFields
-	{{ renderConstants (context .) }}
-{{ end }}
+	{{- renderConstants (context .) -}}
+{{- end -}}
 {{ range .OneOfs }}
-	// we have OneOfs
-	{{ template "oneOfConst" . }}
+	{{- template "oneOfConst" . -}}
 {{ end }}
 
 {{ if disabled . }}
@@ -19,15 +17,16 @@ const msgInnerTpl = `
 	return;
 {{- else -}}
 	{{- range .NonOneOfFields}}
+	// we have NonOneOfField {{.}}
 	let {{.Name}} = value => {	
 		let errors = ref([]);
-
-		{{ render (context .) }}
-
+		{{- render (context .)}}
+		
 		List.length(errors^) == 0 ? Ok(value) : Error(errors^); 
 	};
 {{ end -}}
 {{ range .OneOfs }}
+	// we have OneOfs {{.}}
 	{{ template "oneOf" . }}
 {{- end -}}
 {{- end }}

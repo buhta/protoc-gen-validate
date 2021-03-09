@@ -155,7 +155,6 @@ func classNameFile(f pgs.File) string {
 	protoName := pgs.FilePath(f.Name().String()).BaseName()
 
 	className := sanitizeClassName(protoName)
-	className = appendOuterClassName(className, f)
 
 	return className
 }
