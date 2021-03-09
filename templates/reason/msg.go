@@ -19,10 +19,10 @@ const msgInnerTpl = `
 	{{- range .NonOneOfFields}}
 	// we have NonOneOfField {{.}}
 	let {{.Name}} = value => {	
-		let errors = ref([]);
+		let errors = [];
 		{{- render (context .)}}
 		
-		List.length(errors^) == 0 ? Ok(value) : Error(errors^); 
+		List.length(errors) == 0 ? Ok(value) : Error(errors);
 	};
 {{ end -}}
 {{ range .OneOfs }}
