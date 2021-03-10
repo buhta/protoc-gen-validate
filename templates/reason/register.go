@@ -32,29 +32,29 @@ func Register(tpl *template.Template, params pgs.Parameters) {
 	fns := javaFuncs{pgsgo.InitContext(params)}
 
 	tpl.Funcs(map[string]interface{}{
-		"accessor":                 fns.accessor,
-		"byteArrayLit":             fns.byteArrayLit,
-		"camelCase":                fns.camelCase,
-		"classNameFile":            classNameFile,
-		"classNameMessage":         classNameMessage,
-		"durLit":                   fns.durLit,
-		"fieldName":                fns.fieldName,
-		"javaPackage":              javaPackage,
-		"javaStringEscape":         fns.javaStringEscape,
-		"javaTypeFor":              fns.javaTypeFor,
-		"javaTypeLiteralSuffixFor": fns.javaTypeLiteralSuffixFor,
-		"hasAccessor":              fns.hasAccessor,
-		"oneof":                    fns.oneofTypeName,
-		"sprintf":                  fmt.Sprintf,
-		"simpleName":               fns.Name,
-		"tsLit":                    fns.tsLit,
-		"qualifiedName":            fns.qualifiedName,
-		"isOfFileType":             fns.isOfFileType,
-		"isOfMessageType":          fns.isOfMessageType,
-		"isOfStringType":           fns.isOfStringType,
-		"unwrap":                   fns.unwrap,
-		"renderConstants":          fns.renderConstants(tpl),
-		"constantName":             fns.constantName,
+		"accessor":                   fns.accessor,
+		"byteArrayLit":               fns.byteArrayLit,
+		"camelCase":                  fns.camelCase,
+		"classNameFile":              classNameFile,
+		"classNameMessage":           classNameMessage,
+		"durLit":                     fns.durLit,
+		"fieldName":                  fns.fieldName,
+		"javaPackage":                javaPackage,
+		"javaStringEscape":           fns.javaStringEscape,
+		"reasonTypeFor":              fns.reasonTypeFor,
+		"reasonTypeLiteralSuffixFor": fns.reasonTypeLiteralSuffixFor,
+		"hasAccessor":                fns.hasAccessor,
+		"oneof":                      fns.oneofTypeName,
+		"sprintf":                    fmt.Sprintf,
+		"simpleName":                 fns.Name,
+		"tsLit":                      fns.tsLit,
+		"qualifiedName":              fns.qualifiedName,
+		"isOfFileType":               fns.isOfFileType,
+		"isOfMessageType":            fns.isOfMessageType,
+		"isOfStringType":             fns.isOfStringType,
+		"unwrap":                     fns.unwrap,
+		"renderConstants":            fns.renderConstants(tpl),
+		"constantName":               fns.constantName,
 	})
 
 	template.Must(tpl.Parse(fileTpl))
@@ -326,16 +326,16 @@ func (fns javaFuncs) fieldName(ctx shared.RuleContext) string {
 	return ctx.Field.Name().String()
 }
 
-func (fns javaFuncs) javaTypeFor(ctx shared.RuleContext) string {
+func (fns javaFuncs) reasonTypeFor(ctx shared.RuleContext) string {
 	t := ctx.Field.Type()
 
 	// Map key and value types
 	if t.IsMap() {
 		switch ctx.AccessorOverride {
 		case "key":
-			return fns.javaTypeForProtoType(t.Key().ProtoType())
+			return fns.reasonTypeForProtoType(t.Key().ProtoType())
 		case "value":
-			return fns.javaTypeForProtoType(t.Element().ProtoType())
+			return fns.reasonTypeForProtoType(t.Element().ProtoType())
 		}
 	}
 
@@ -372,10 +372,10 @@ func (fns javaFuncs) javaTypeFor(ctx shared.RuleContext) string {
 		return fns.qualifiedName(t.Enum())
 	}
 
-	return fns.javaTypeForProtoType(t.ProtoType())
+	return fns.reasonTypeForProtoType(t.ProtoType())
 }
 
-func (fns javaFuncs) javaTypeForProtoType(t pgs.ProtoType) string {
+func (fns javaFuncs) reasonTypeForProtoType(t pgs.ProtoType) string {
 
 	switch t {
 	case pgs.Int32T, pgs.UInt32T, pgs.SInt32, pgs.Fixed32T, pgs.SFixed32:
@@ -397,15 +397,15 @@ func (fns javaFuncs) javaTypeForProtoType(t pgs.ProtoType) string {
 	}
 }
 
-func (fns javaFuncs) javaTypeLiteralSuffixFor(ctx shared.RuleContext) string {
+func (fns javaFuncs) reasonTypeLiteralSuffixFor(ctx shared.RuleContext) string {
 	t := ctx.Field.Type()
 
 	if t.IsMap() {
 		switch ctx.AccessorOverride {
 		case "key":
-			return fns.javaTypeLiteralSuffixForPrototype(t.Key().ProtoType())
+			return fns.reasonTypeLiteralSuffixForPrototype(t.Key().ProtoType())
 		case "value":
-			return fns.javaTypeLiteralSuffixForPrototype(t.Element().ProtoType())
+			return fns.reasonTypeLiteralSuffixForPrototype(t.Element().ProtoType())
 		}
 	}
 
@@ -422,10 +422,10 @@ func (fns javaFuncs) javaTypeLiteralSuffixFor(ctx shared.RuleContext) string {
 		}
 	}
 
-	return fns.javaTypeLiteralSuffixForPrototype(t.ProtoType())
+	return fns.reasonTypeLiteralSuffixForPrototype(t.ProtoType())
 }
 
-func (fns javaFuncs) javaTypeLiteralSuffixForPrototype(t pgs.ProtoType) string {
+func (fns javaFuncs) reasonTypeLiteralSuffixForPrototype(t pgs.ProtoType) string {
 	switch t {
 	case pgs.Int64T, pgs.UInt64T, pgs.SInt64, pgs.Fixed64T, pgs.SFixed64:
 		return "L"
