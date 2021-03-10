@@ -9,4 +9,13 @@ const stringTpl = `{{ $f := .Field }}{{ $r := .Rules -}}
 {{- if $r.MaxLen }}
 		let errors = errors @ (String.length(value) <= {{ $r.GetMaxLen }} ? [] : ["length must be max " ++ string_of_int({{ $r.GetMaxLen }})]);
 {{- end -}}
+{{- if $r.GetEmail }}
+		let errors = errors
+		@
+		switch (value) {
+			| "" => ["email is empty"]
+			| s when ! String.contains(s, '@') => ["invalid email"]
+			| _ => []
+		};
+{{- end -}}
 `
